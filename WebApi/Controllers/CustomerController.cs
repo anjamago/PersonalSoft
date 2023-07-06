@@ -1,5 +1,5 @@
-using Business;
-using Entities.Models;
+using Business.Customer;
+using Entities.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -17,11 +17,29 @@ public class CustomerController : ControllerBase
         _business = business;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Create(Customers customers)
+    [HttpGet("List")]
+    public async Task<IActionResult> GetList()
     {
-        _business.Create(customers);
-        return NoContent();
+        var response = await _business.GetList();
+        return StatusCode(response.Code, response);
+    }
+
+    [HttpGet("Find")]
+    public async Task<IActionResult> GetList(string id )
+    {
+        var response = await _business.GetFind(id);
+        return StatusCode(response.Code, response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CustomerCommand customers)
+    {
+        var response = await _business.Create(customers);
+        if (response.Data is null)
+        {
+            return NoContent();
+        }
+        return StatusCode(response.Code, response);
 
     }
 }

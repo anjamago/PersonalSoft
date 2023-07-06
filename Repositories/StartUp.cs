@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Entities;
 using Entities.Interface.Repositories;
 using Repository.Context;
+using Repository.Base;
 
 namespace Repository;
 
@@ -13,8 +14,10 @@ public static class StartUp
         service.Configure<StoreDatabaseSettings>(
             config.GetSection("StoreDatabaseSettings")
         );
+        service.AddTransient(typeof(MongoDbContext<>));
+        service.AddScoped(typeof(IMongoRepositoryBase<>), typeof(MongoBaseRepository<>));
 
-        service.AddScoped(typeof(IDbMongo<>), typeof(DbMongo<>));
+        service.AddScoped<ICustomerRepository, CustomerRepository>();
     }
     
 }
