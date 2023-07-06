@@ -1,0 +1,17 @@
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Business.deps.json
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Business.dll
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Business.pdb
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.csproj.AssemblyReference.cache
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.GeneratedMSBuildEditorConfig.editorconfig
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.AssemblyInfoInputs.cache
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.AssemblyInfo.cs
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.csproj.CoreCompileInputs.cache
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.dll
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/refint/Business.dll
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.pdb
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/ref/Business.dll
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Entities.dll
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Repositories.dll
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Entities.pdb
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/bin/Debug/net6.0/Repositories.pdb
+/Users/andymartinez/Documents/Desarrollo/Pruebas/PersonalSoft/Business/obj/Debug/net6.0/Business.csproj.CopyComplete
