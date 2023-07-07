@@ -1,10 +1,10 @@
-﻿using Entities.Interface.Repositories;
-using Entities.Models;
+﻿using Entities.Models;
 using MongoDB.Driver;
+using Repository.Interface;
 
 namespace Repository
 {
-    public sealed class CustomerRepository: ICustomerRepository
+    public sealed class CustomerRepository : ICustomerRepository
     {
         private readonly IMongoRepositoryBase<Customers> _repository;
         public CustomerRepository(IMongoRepositoryBase<Customers> repository)
@@ -30,7 +30,7 @@ namespace Repository
             return await _repository.GetListFilterAsync(filter);
         }
         public async Task<List<Customers>> GetList()
-        =>  await _repository.GetListAsync();
+        => await _repository.GetListAsync();
 
 
     }

@@ -25,7 +25,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet("Find")]
-    public async Task<IActionResult> GetList(string id )
+    public async Task<IActionResult> GetList(string id)
     {
         var response = await _business.GetFind(id);
         return StatusCode(response.Code, response);

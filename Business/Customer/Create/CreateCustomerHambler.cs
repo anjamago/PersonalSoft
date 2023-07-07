@@ -1,7 +1,7 @@
 ﻿using Entities.DTO;
-using Entities.Interface.Repositories;
-using MediatR;
 using Entities.Models;
+using MediatR;
+using Repository.Interface;
 
 namespace Business.Customer.Create
 {
@@ -16,7 +16,8 @@ namespace Business.Customer.Create
 
         public async Task Handle(CustomerCommand request, CancellationToken cancellationToken)
         {
-            var customer = new Customers() { 
+            var customer = new Customers()
+            {
                 Name = request.Name,
                 Identification = request.Identification,
                 City = request.City,
@@ -24,7 +25,7 @@ namespace Business.Customer.Create
             };
 
             await _customers.AddCustomerAsync(customer);
-            
+
         }
     }
 }

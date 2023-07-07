@@ -1,7 +1,8 @@
-﻿using Entities.Interface.Repositories;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Repository.Context;
+using Repository.Interface;
 
 namespace Repository.Base
 {
@@ -52,6 +53,8 @@ namespace Repository.Base
                 .Find(filter).ToListAsync();
         }
 
-       
+
+        public IMongoQueryable<TEntity> Queryable()
+            => _context.Collection.AsQueryable();
     }
 }

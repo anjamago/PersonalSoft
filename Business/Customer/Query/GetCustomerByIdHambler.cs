@@ -1,6 +1,6 @@
 ﻿using Entities.DTO;
-using Entities.Interface.Repositories;
 using MediatR;
+using Repository.Interface;
 
 namespace Business.Customer.Query
 {

@@ -7,5 +7,5 @@ namespace Business.Customer.Query
     {
     }
 
-   
+
 }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Business;
 
-public static class StarUp
+public static class Business
 {
 
     public static void AddBusiness(this IServiceCollection service)
@@ -17,6 +17,7 @@ public static class StarUp
         });
         service.AddValidatorsFromAssembly(typeof(ApplicationAssemblyReference).Assembly);
         service.AddScoped<CustomersBusiness>();
+        service.AddScoped<PlansBusiness>();
 
 
     }

@@ -4,7 +4,6 @@ namespace Entities;
 
 public class ResponseBase<T>
 {
-
     public ResponseBase(HttpStatusCode code = HttpStatusCode.OK, string message = null, T data = default, int count = 0)
     {
         ResponseTime = DateTime.UtcNow.AddHours(-5);
