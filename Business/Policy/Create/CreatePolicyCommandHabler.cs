@@ -6,15 +6,16 @@ namespace Business.Create;
 
 public class CreatePolicyCommandHabler : IRequestHandler<CreatePolicyCommand, List<string>> 
 {
+    private readonly ICustomerRepository _customerRepository;
+    private readonly IPolicyRepository _policyRepository;
+    private readonly IVehicleRepository _vehicleRepository;
+
     public CreatePolicyCommandHabler(ICustomerRepository customerRepository, IPolicyRepository policyRepository, IVehicleRepository vehicleRepository)
     {
         _customerRepository = customerRepository;
         _policyRepository = policyRepository;
+        _vehicleRepository = vehicleRepository;
     }
-
-    private readonly ICustomerRepository _customerRepository;
-    private readonly IPolicyRepository _policyRepository;
-    private readonly IVehicleRepository _vehicleRepository;
 
     public async Task<List<string>> Handle(CreatePolicyCommand request, CancellationToken cancellationToken)
     {
@@ -32,7 +33,7 @@ public class CreatePolicyCommandHabler : IRequestHandler<CreatePolicyCommand, Li
         }
 
 
-        if (erros.Any())
+        if (erros.Any(x=>x.Count() > 0))
         {
             return erros;
         }
@@ -89,6 +90,10 @@ public class CreatePolicyCommandHabler : IRequestHandler<CreatePolicyCommand, Li
     {
         DateTime fechaActual = DateTime.Now;
         var policyCustomer = await _policyRepository.GetPolicyCustomerAsync(idOrIdentification);
+        if(policyCustomer is null)
+        {
+            return false;
+        }
         return (fechaActual >= DateTime.Parse(policyCustomer.StartDate) && fechaActual <= DateTime.Parse(policyCustomer.EndDate));
        
     }

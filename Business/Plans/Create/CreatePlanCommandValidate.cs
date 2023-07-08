@@ -11,7 +11,7 @@ namespace Business.Plans.Create
             RuleFor(x => x.TotalCoverage).NotNull().NotEmpty().WithMessage("Debe ingresar un moto total de cobertura");
         }
 
-        private bool IsToppingValid(List<string> toppingIds) => !toppingIds.Any();
+        private bool IsToppingValid(List<string> toppingIds) => toppingIds.Any();
 
     }
 }

@@ -1,10 +1,12 @@
 ﻿
 using Entities.Models;
+using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 using Repository.Interface;
 
 namespace Repository
 {
-    public class PolicyRepostirory
+    public class PolicyRepostirory : IPolicyRepository
     {
         private readonly IMongoRepositoryBase<Policy> _repositorie;
         private readonly IMongoRepositoryBase<Vehicles> _vehicleRepositorie;
@@ -36,7 +38,8 @@ namespace Repository
             {
                 var result = from po in queryable
                              join ve in vehicle on po.IdVehicule equals ve.Id
-                             select po;
+                             select new Policy { Id = po.Id };
+
                 return result.ToList().First();
             }
 
@@ -45,22 +48,58 @@ namespace Repository
 
         public async Task Create(Policy policy)
             => await _repositorie.AddAsync(policy);
-        
+
         public async Task<Policy> GetPolicyCustomerAsync(string idOrIdentification)
         {
             var queryable = _repositorie.Queryable();
-            var customers = _customerRepositorie.Queryable().Where(w =>
-                w.Identification.Equals(idOrIdentification) || w.Id.Equals(idOrIdentification));
+            var customers = _customerRepositorie.Queryable();
 
+            Func<PolicisCustomer, bool> func =   ObjectId.TryParse(idOrIdentification, out _) ? 
+                 (w) => w.IdCliente.Equals(idOrIdentification) 
+                 :(w) => w.Identification.Equals(idOrIdentification);
 
-            var result = from policy in queryable
-                         join customer in customers on policy.IdCliente equals customer.Id
-                         select policy;
+            var result = queryable.Join(
+               customers,
+               (pol) => pol.IdCliente,
+               (customer) => customer.Id,
+               (pol, customer) => new  PolicisCustomer(  
+                   pol.IdCliente,
+                   pol.Id,
+                   customer.Identification,
+                   pol.StartDate,
+                   pol.EndDate
+                )
+           ).Where(func)
+           .ToList();
 
+            var item = result.FirstOrDefault();
 
+            return new Policy()
+            {
+                Id = item.Id,
+                IdCliente = item.IdCliente,
+                StartDate = item.StartDate,
+                EndDate = item.EndDate,
 
-
-            return result.ToList().First();
+            };
         }
+    }
+
+    public  class PolicisCustomer
+    {
+        public PolicisCustomer(string idCliente, string id, string identification, string startDate, string endDate)
+        {
+            IdCliente = idCliente;
+            Id = id;
+            Identification = identification;
+            StartDate = startDate;
+            EndDate = endDate;
+        }
+
+        public  string IdCliente { get; set; }
+        public string Id { get; set; }
+        public string Identification { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
     }
 }

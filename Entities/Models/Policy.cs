@@ -12,7 +12,11 @@ public class Policy
     public string CreateDate { set; get; }
     public string StartDate { set; get; }
     public string EndDate { set; get; }
+
+    [BsonRepresentation(BsonType.ObjectId)]
     public string IdCliente { set; get; }
+
+    [BsonRepresentation(BsonType.ObjectId)]
     public string IdVehicule { set; get; }
 
 }   

@@ -20,6 +20,7 @@ public static class Repositories
         service.AddScoped<ICustomerRepository, CustomerRepository>();
         service.AddScoped<IPlanRepository, PlanRepository>();
         service.AddScoped<IVehicleRepository, VehicleRepository>();
+        service.AddScoped<IPolicyRepository, PolicyRepostirory>();
     }
 
 }
