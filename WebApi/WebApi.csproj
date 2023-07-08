@@ -16,4 +16,10 @@
       <ProjectReference Include="..\Repositories\Repositories.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="inyects\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="inyects\" />
+    </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ namespace Repository
          => _repository = repository;
 
 
-        public async Task<bool> IsIdentificationUniquedAsync(int identification)
+        public async Task<bool> IsIdentificationUniquedAsync(string identification)
         {
             var filter = Builders<Customers>.Filter.Eq(x => x.Identification, identification);
             var exist = await _repository.GetListFilterAsync(filter);

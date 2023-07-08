@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Business;
 
-public class PlansBusiness
+public class PlansBusiness : IPlansBusiness
 {
     public readonly ISender _sender;
     public readonly IValidator<PlansCommand> _validate;

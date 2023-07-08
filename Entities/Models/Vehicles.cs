@@ -11,6 +11,6 @@ public class Vehicles
     public string IdUser { get; set; }
     public string Type { set; get; }
     public string Plaque { set; get; }
-    public int Model { set; get; }
+    public string Model { set; get; }
     public bool Inspection { set; get; }
 }

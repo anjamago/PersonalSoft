@@ -8,10 +8,10 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class CustomerController : ControllerBase
 {
-    private readonly CustomersBusiness _business;
+    private readonly ICustomersBusiness _business;
 
     public CustomerController(
-        CustomersBusiness business
+        ICustomersBusiness business
     )
     {
         _business = business;

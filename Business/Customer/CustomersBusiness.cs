@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Business.Customer;
 
-public class CustomersBusiness
+public class CustomersBusiness : ICustomersBusiness
 {
     private readonly IValidator<CustomerCommand> _validator;
     private readonly IMediator _sender;

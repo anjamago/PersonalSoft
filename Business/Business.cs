@@ -15,9 +15,12 @@ public static class Business
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
+
         service.AddValidatorsFromAssembly(typeof(ApplicationAssemblyReference).Assembly);
-        service.AddScoped<CustomersBusiness>();
-        service.AddScoped<PlansBusiness>();
+
+        service.AddScoped<ICustomersBusiness,CustomersBusiness>();
+        service.AddScoped<IPlansBusiness,PlansBusiness>();
+        service.AddScoped<IPolicyBusiness,PolicyBusiness>();
 
 
     }

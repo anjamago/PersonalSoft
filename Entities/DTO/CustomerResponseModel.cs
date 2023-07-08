@@ -2,7 +2,7 @@
 {
     public record CustomerResponseModel(
          string Name,
-         int Identification,
+         string Identification,
          string City,
          string Address,
          string Id
