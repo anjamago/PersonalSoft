@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "1d17de25-a61c-4368-9bfa-ae8dd63cd662",
+		"name": "PersonalSoft",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "231741"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Adrian\",\r\n  \"identification\": \"12345\",\r\n  \"city\": \"Bogota\",\r\n  \"address\": \"casita\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/Customer",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/Customer/Find?id=64a97f04dc413cfb47024924",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Customer",
+								"Find"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64a97f04dc413cfb47024924"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Planes",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/Plans",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Plan alterno\",\r\n  \"totalCoverage\": \"1000000\",\r\n  \"toppingsId\": [\r\n    \"64a72dc6236e52f3ec7c30fe\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/Plans",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Plans"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Polizas",
+			"item": [
+				{
+					"name": "Creacion por IdCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"policyNumber\": \"123\",\r\n  \"idCustomer\":\"64a99cbcbe6b26292c59c43f\",\r\n  \"idPlan\": \"64a980b999357c9073a01db4\",\r\n  \"plaque\": \"IAB47G\",\r\n  \"vehicleModel\": \"2021\",\r\n  \"whitInspection\": false,\r\n  \"startDate\": \"08-07-2023\",\r\n  \"endDate\": \"07-07-2024\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/Policy",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Policy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creacion cliente nuevo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"policyNumber\": \"123\",\r\n  \"customerName\": \"Andy\",\r\n  \"identification\": \"1067289554\",\r\n  \"idPlan\": \"64a980b999357c9073a01db4\",\r\n  \"city\": \"Bogota\",\r\n  \"address\": \"Casita \",\r\n  \"plaque\": \"IAB47G\",\r\n  \"vehicleModel\": \"2021\",\r\n  \"whitInspection\": false,\r\n  \"startDate\": \"01-06-2022\",\r\n  \"endDate\": \"01-04-2023\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/Policy",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Policy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Commos",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "https://localhost:7060",
+			"type": "string"
+		}
+	]
+}
