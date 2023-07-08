@@ -46,6 +46,33 @@ public class PolicyBusiness : IPolicyBusiness
 
              );
     }
+
+    public async Task<ResponseBase<List<string>>> CreateIdCustomer(CreatePolicyCommand policy)
+    {
+        var result = _validator.Validate(policy);
+
+        if (!result.IsValid)
+        {
+            var errors = result.Errors.Select(s => s.ErrorMessage).ToList();
+            ResulErrors(errors: errors);
+            return response;
+        }
+
+        var isvalid = !IsPolicyValid(DateTime.Parse(policy.StartDate), DateTime.Parse(policy.EndDate));
+
+        if (isvalid) return response;
+
+        var senderRespon = await _sender.Send(policy);
+
+        return !senderRespon.Any() ?
+             new ResponseBase<List<string>>() :
+             new ResponseBase<List<string>>(
+                code: System.Net.HttpStatusCode.BadRequest,
+                data: senderRespon,
+                message: "Error al intentar crear la solicitud"
+
+             );
+    }
     private bool IsPolicyValid(DateTime StartDate, DateTime EndDate)
     {
         int days = 364;

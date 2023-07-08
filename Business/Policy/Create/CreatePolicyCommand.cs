@@ -10,6 +10,7 @@ public record CreatePolicyCommand(
     bool whitInspection,
     string StartDate,
     string EndDate,
+    string IdCustomer,
     string City,
     string Address,
     string customerName,
