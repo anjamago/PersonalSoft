@@ -1,6 +1,8 @@
 using Business.Create;
 using Business.Policy.Create;
+using Business.Query;
 using Entities;
+using Entities.DTO;
 using FluentValidation;
 using MediatR;
 
@@ -9,15 +11,17 @@ namespace Business;
 public class PolicyBusiness : IPolicyBusiness
 {
     private readonly IValidator<CreatePolicyCommand> _validator;
+    private readonly IValidator<CreatePolicyIdCommand> _validatorId;
     private readonly ISender _sender;
 
     private ResponseBase<List<string>> response = new(data: new List<string>());
 
-    public PolicyBusiness(IValidator<CreatePolicyCommand> validator, ISender sender)
+    public PolicyBusiness(IValidator<CreatePolicyCommand> validator, IValidator<CreatePolicyIdCommand> validatorid,ISender sender)
     {
         _validator = validator;
         _sender = sender;
-    
+        _validatorId = validatorid;
+
     }
 
     public async Task<ResponseBase<List<string>>> Create(CreatePolicyCommand policy)
@@ -47,9 +51,9 @@ public class PolicyBusiness : IPolicyBusiness
              );
     }
 
-    public async Task<ResponseBase<List<string>>> CreateIdCustomer(CreatePolicyCommand policy)
+    public async Task<ResponseBase<List<string>>> CreateIdCustomer(CreatePolicyIdCommand policy)
     {
-        var result = _validator.Validate(policy);
+        var result = _validatorId.Validate(policy);
 
         if (!result.IsValid)
         {
@@ -61,8 +65,21 @@ public class PolicyBusiness : IPolicyBusiness
         var isvalid = !IsPolicyValid(DateTime.Parse(policy.StartDate), DateTime.Parse(policy.EndDate));
 
         if (isvalid) return response;
-
-        var senderRespon = await _sender.Send(policy);
+        var modelSender = new CreatePolicyCommand(
+                policyNumber: policy.policyNumber,
+                idPlan : policy.idPlan,
+                vehicleModel:policy.vehicleModel,
+                whitInspection:policy.whitInspection,
+                StartDate: policy.StartDate,
+                EndDate:policy.EndDate,
+                IdCustomer:policy.IdCustomer!,
+                plaque:policy.plaque,
+                City: "",
+                Address:"",
+                customerName:"",
+                identification:""
+            );
+        var senderRespon = await _sender.Send(modelSender);
 
         return !senderRespon.Any() ?
              new ResponseBase<List<string>>() :
@@ -73,6 +90,25 @@ public class PolicyBusiness : IPolicyBusiness
 
              );
     }
+
+    public async Task<ResponseBase<PolicyCustomerDto>> Find(string policNumberOrPlaque)
+    {
+        var modelSender = new FindPolicyOrPlaqueCommand()
+        {
+            policyOrPlaque = policNumberOrPlaque
+        };
+
+        var result = await _sender.Send(modelSender);
+        
+        return  new ResponseBase<PolicyCustomerDto>(data: result);
+    }
+
+    public async Task<ResponseBase<List<PolicyCustomerDto>>> GetAll()
+    {
+        var result = await _sender.Send(new GetAllCommand());
+        return new ResponseBase<List<PolicyCustomerDto>>(data: result);
+    }
+
     private bool IsPolicyValid(DateTime StartDate, DateTime EndDate)
     {
         int days = 364;
@@ -89,12 +125,12 @@ public class PolicyBusiness : IPolicyBusiness
 
         if (now < StartDate.Date)
         {
-            ResulErrors(error: "La póliza aún no es vigente. ");
+            ResulErrors(error: "La pï¿½liza aï¿½n no es vigente. ");
             isValid = false;
         }
         if(effectiveDate.Date > EndDate.Date || effectiveDate.Date < EndDate.Date)
         {
-            ResulErrors(error: "La póliza aún no es vigente. ");
+            ResulErrors(error: "La pï¿½liza aï¿½n no es vigente. ");
             isValid = false;
         }
         return isValid;

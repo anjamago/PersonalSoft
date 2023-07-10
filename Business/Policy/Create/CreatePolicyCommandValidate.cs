@@ -12,7 +12,7 @@ public class CreatePolicyCommandValidate : AbstractValidator<CreatePolicyCommand
         RuleFor(x => x.vehicleModel).NotEmpty().NotNull().WithMessage("Ingrese el modelo del vehiculo");
         RuleFor(x => x.whitInspection).Must(x => x == true || x == false).WithMessage("Indique si el vehiculo cuenta con inspecion ");
 
-
+        RuleFor(x => x.IdCustomer).Null().Empty().WithMessage("ID no es requerido");
         RuleFor(x => x.customerName).NotEmpty().NotNull().WithMessage("Nombre de cliente requerido");
         RuleFor(x => x.identification).NotEmpty().NotNull().WithMessage("Numero identificacion requerido");
         RuleFor(x => x.City).NotEmpty().NotNull().WithMessage("Ciudad es requerida");

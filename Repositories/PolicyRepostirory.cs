@@ -1,4 +1,5 @@
 ﻿
+using Entities.DTO;
 using Entities.Models;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
@@ -20,30 +21,63 @@ namespace Repository
         }
 
 
-        public async Task<Policy> GetPolicyPlaqueAsync(string policyNumberOrplaque)
+        public async Task<PolicyCustomerDto> GetPolicyPlaqueAsync(string policyNumberOrplaque)
         {
-            var vehicle = _vehicleRepositorie.Queryable();
-            var queryable = _repositorie.Queryable();
+            var vehicleQueryable = _vehicleRepositorie.Queryable();
+            var policyQueryable = _repositorie.Queryable();
 
-            if (vehicle.Where(w => w.Plaque.Equals(policyNumberOrplaque)).ToList().Any())
-            {
-                var result = from ve in vehicle
-                             join po in queryable on ve.Id equals po.IdVehicule
-                             select po;
+            var result = policyQueryable.Join(
+                    vehicleQueryable,
+                    pol => pol.IdVehicule,
+                    veh => veh.Id,
+                    (pol, veh) => new PolicyCustomerDto()
+                    {
+                        Id = pol.Id,
+                        policyNumber = pol.policyNumber,
+                       CreateDate = pol.CreateDate,
+                       StartDate = pol.StartDate,
+                        EndDate = pol.EndDate,
+                       IdCustomer = pol.IdCliente,
+                       Plaque = veh.Plaque,
+                       Model = veh.Model,
+                       Inspection = veh.Inspection
 
-                return result.ToList().First();
-            }
+                    }
+                ).Where(w => w.Plaque.Equals(policyNumberOrplaque) || w.policyNumber.Equals(policyNumberOrplaque))
+                .ToList();
+        
 
-            if (queryable.Where(w => w.policyNumber.Equals(policyNumberOrplaque)).ToList().Any())
-            {
-                var result = from po in queryable
-                             join ve in vehicle on po.IdVehicule equals ve.Id
-                             select new Policy { Id = po.Id };
+            return result?.FirstOrDefault();
+        }
+        
+        public async Task<List<PolicyCustomerDto>> GetAll()
+        {
+            var vehicleQueryable = _vehicleRepositorie.Queryable();
+            var policyQueryable = _repositorie.Queryable();
+            var customerQueryable = _customerRepositorie.Queryable();
 
-                return result.ToList().First();
-            }
+            var result = from pol in policyQueryable
+                join cus in customerQueryable on pol.IdCliente equals cus.Id
+                join veh in vehicleQueryable on pol.IdVehicule equals veh.Id
+                select new PolicyCustomerDto()
+                {
+                    Id = pol.Id,
+                    policyNumber = pol.policyNumber,
+                    CreateDate = pol.CreateDate,
+                    StartDate = pol.StartDate,
+                    EndDate = pol.EndDate,
+                    IdCustomer = pol.IdCliente,
+                    Plaque = veh.Plaque,
+                    Model = veh.Model,
+                    Inspection = veh.Inspection,
+                    Name = cus.Name,
+                    Identification = cus.Identification,
+                    Address = cus.Address,
+                    City = cus.City
 
-            return null;
+                };
+            
+            return result.ToList();
         }
 
         public async Task Create(Policy policy)
@@ -72,9 +106,8 @@ namespace Repository
            ).Where(func)
            .ToList();
 
-            var item = result.FirstOrDefault();
-
-            return new Policy()
+            var item = result?.FirstOrDefault();
+            var model =  item is null ? null: new Policy()
             {
                 Id = item.Id,
                 IdCliente = item.IdCliente,
@@ -82,6 +115,7 @@ namespace Repository
                 EndDate = item.EndDate,
 
             };
+            return model;
         }
     }
 

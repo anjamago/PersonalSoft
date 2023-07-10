@@ -2,11 +2,13 @@
 using Business;
 using Entities.DTO;
 using Business.Create;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class PlansController: ControllerBase
     {
 

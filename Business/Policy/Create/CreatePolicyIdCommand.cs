@@ -2,8 +2,6 @@
 
 namespace Business.Policy.Create
 {
-
-
     public record CreatePolicyIdCommand(
     string policyNumber,
     string idPlan,
@@ -12,8 +10,6 @@ namespace Business.Policy.Create
     bool whitInspection,
     string StartDate,
     string EndDate,
-    string IdCustomer,
-
-
+    string IdCustomer
     ) : IRequest<List<string>>;
 }

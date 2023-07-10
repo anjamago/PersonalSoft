@@ -1,11 +1,13 @@
 using Business.Customer;
 using Entities.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class CustomerController : ControllerBase
 {
     private readonly ICustomersBusiness _business;

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Business.Policy.Create
 {
-    public class CreateCommandIdValidate : AbstractValidator<CreatePolicyCommand>
+    public class CreateCommandIdValidate : AbstractValidator<CreatePolicyIdCommand>
     {
         public CreateCommandIdValidate()
         {
@@ -12,7 +12,7 @@ namespace Business.Policy.Create
             RuleFor(x => x.plaque).NotEmpty().NotNull().WithMessage("Ingrese la placa del vehiculo");
             RuleFor(x => x.vehicleModel).NotEmpty().NotNull().WithMessage("Ingrese el modelo del vehiculo");
             RuleFor(x => x.whitInspection).Must(x => x == true || x == false).WithMessage("Indique si el vehiculo cuenta con inspecion ");
-            RuleFor(x => x.IdCustomer).NotEmpty().NotNull();
+            RuleFor(x => x.IdCustomer).NotEmpty().NotNull().WithMessage("ID Client es requerido");
         }
     }
 }

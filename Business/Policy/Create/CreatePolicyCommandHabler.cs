@@ -1,4 +1,4 @@
-using Amazon.Runtime.Internal;
+
 using Entities.Models;
 using MediatR;
 using Repository.Interface;
@@ -66,18 +66,16 @@ public class CreatePolicyCommandHabler : IRequestHandler<CreatePolicyCommand, Li
             Plaque =  request.plaque
         };
         await _vehicleRepository.Create(vehicleModel);
-        var policeModel = new Policy()
+        var policeModel = new Entities.Models.Policy()
         {
             policyNumber = request.policyNumber,
             CreateDate = DateTime.Now.ToString(),
             StartDate = request.StartDate,
             EndDate = request.EndDate,
             IdCliente = customerModel.Id,
-               IdVehicule = vehicleModel.Id
+            IdVehicule = vehicleModel.Id
         };
-
-
-
+        
         await _policyRepository.Create(policeModel);
 
 
