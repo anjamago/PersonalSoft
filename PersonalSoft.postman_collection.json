@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1d17de25-a61c-4368-9bfa-ae8dd63cd662",
+		"_postman_id": "b0210ade-8c5d-4165-b3bb-91794c1cfcf2",
 		"name": "PersonalSoft",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "231741"
@@ -39,7 +39,10 @@
 					"name": "GetAll",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -135,12 +138,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/Policy",
+							"raw": "{{server}}/Policy/PolicyCustomerId",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
-								"Policy"
+								"Policy",
+								"PolicyCustomerId"
 							]
 						}
 					},
@@ -171,12 +175,90 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Filtras por placa o poliza",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/Policy/Find?policNumberOrPlaque=123",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Policy",
+								"Find"
+							],
+							"query": [
+								{
+									"key": "policNumberOrPlaque",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjUxOWNiZDkxLTM5YzUtNDI5ZC04YzQyLWVlYmY1MGQzMGFlMCIsInN1YiI6ImFkbWluIiwiZW1haWwiOiJhZG1pbiIsImp0aSI6IjQ0YjUwNjdmLTMwNWEtNDBkNC1iODhjLWVjNTMwZTA4MGFiZSIsIm5iZiI6MTY4ODk1MjQ0MywiZXhwIjoxNjg4OTUyNzM4LCJpYXQiOjE2ODg5NTI0NDMsImlzcyI6Imh0dHBzOi8vcGVyc29uYWxzb2Z0LmNvbS8iLCJhdWQiOiJodHRwczovL3BlcnNvbmFsc29mdC5jb20vIn0.jPwD4E-h9DeWfWj0rd6rFsuX1VJczrzPtrDtDUZ3tlnfdq4AUFrykexWS2TQY1J-ZvJFyq-s9O3SoXRjv9PvGA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/Policy",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"Policy"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Commos",
 			"item": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userName\": \"admin\",\n  \"password\": \"qwe123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/security/createToken",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"security",
+						"createToken"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
